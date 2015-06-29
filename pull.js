@@ -1,18 +1,30 @@
-// var exec = require('child_process').exec;
-var GitHubApi = require('github');
+var exec = require('child_process').exec;
+// var GitHubApi = require('github');
+//
+// var github = new GitHubApi({
+//   version: '3.0.0',
+//   debug: true
+// });
+//
+// var msg = {
+//   user: 'soyzamudio',
+//   repo: 'invoice'
+// }
+// github.repos.get(msg, function(err, data) {
+//   console.log(data);
+// });
 
-var github = new GitHubApi({
-  version: '3.0.0',
-  debug: true
-});
-
-var msg = {
-  user: 'soyzamudio',
-  repo: 'invoice'
+var createCommit = function() {
+  return exec('git add . && git commit -m "Testing commit from node.js" && git push origin master', function(err, stdout, stderr) {
+    var sha = stdout.split(' ')[1];
+    sha = sha.split('');
+    sha.pop()
+    console.log(sha.join(''));
+    // console.log(stdout);
+  });
 }
-github.repos.get(msg, function(err, data) {
-  console.log(data);
-});
+
+createCommit()
 
 // var transifex = function(push, pull) {
 //   return push(pull);
